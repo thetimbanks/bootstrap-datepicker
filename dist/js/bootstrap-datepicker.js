@@ -712,7 +712,7 @@
 			if (yorient === 'auto'){
 				top_overflow = -scrollTop + top - calendarHeight;
 				bottom_overflow = scrollTop + windowHeight - (top + height + calendarHeight);
-				if (Math.max(top_overflow, bottom_overflow) === bottom_overflow || scrollTop === 0)
+				if (Math.max(top_overflow, bottom_overflow) === bottom_overflow)
 					yorient = 'top';
 				else
 					yorient = 'bottom';
@@ -724,8 +724,10 @@
                 top += height;
                 yorient = 'top'; 
             }                
-            else 
+            else {
                 top -= calendarHeight + parseInt(this.picker.css('padding-top'));
+                yorient = 'bottom'; 
+            }
 
             this.picker.addClass('datepicker-orient-' + yorient);
 
@@ -915,7 +917,7 @@
 			if (isNaN(year) || isNaN(month))
 				return;
 			this.picker.find('.datepicker-days thead .datepicker-switch')
-						.text(DPGlobal.formatDate(new Date(year, month), titleFormat, this.o.language));
+						.text(DPGlobal.formatDate(new UTCDate(year, month), titleFormat, this.o.language));
 			this.picker.find('tfoot .today')
 						.text(todaytxt)
 						.toggle(this.o.todayBtn !== false);
